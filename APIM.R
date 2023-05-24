@@ -1,4 +1,3 @@
-
 partner_data <- function(data, identifier, couple_identifier){
   require(dplyr)
   for(i in 1:nrow(mydata)){
@@ -9,7 +8,7 @@ partner_data <- function(data, identifier, couple_identifier){
     
     df <- mydata[mydata[,couple_identifier] == COUP & mydata[,identifier] != ID, ]
     df$Couple_ID <- NULL  
-    df$ID <- ID
+    df[, identifier] <- ID
     
     colnames(df) <- paste(colnames(df), "P", sep = "_")
     colnames(df)[colnames(df) == paste(identifier, "_P", sep ="")] =identifier
