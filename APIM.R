@@ -2,7 +2,7 @@
 
 partner_data <- function(data, identifier, couple_identifier, merge = T){
   require(dplyr)
-  for(i in 1:nrow(mydata)){
+  for(i in 1:nrow(data)){
     
     mydata = data
     ID = mydata[i, identifier]  
@@ -19,12 +19,12 @@ partner_data <- function(data, identifier, couple_identifier, merge = T){
     if(i > 1){partner_df = rbind(partner_df, df)}
     
   }
-  
+    if(merge == T) {
   colnames(data) <- paste(colnames(data), "A", sep = "_")
   colnames(data)[colnames(data) == paste(identifier, "_A", sep ="")] =identifier
   colnames(data)[colnames(data) == paste(couple_identifier, "_A", sep ="")] =couple_identifier
   
-  if(merge == T) {partner_df <- merge(data, partner_df, by = identifier)
+partner_df <- merge(data, partner_df, by = identifier)
   
   
   partner_df <-  partner_df %>%
