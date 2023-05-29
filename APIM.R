@@ -1,5 +1,4 @@
 
-
 partner_data <- function(data, identifier, couple_identifier, merge = T){
   require(dplyr)
   for(i in 1:nrow(data)){
@@ -19,20 +18,22 @@ partner_data <- function(data, identifier, couple_identifier, merge = T){
     if(i > 1){partner_df = rbind(partner_df, df)}
     
   }
-    if(merge == T) {
-  colnames(data) <- paste(colnames(data), "A", sep = "_")
-  colnames(data)[colnames(data) == paste(identifier, "_A", sep ="")] =identifier
-  colnames(data)[colnames(data) == paste(couple_identifier, "_A", sep ="")] =couple_identifier
-  
-partner_df <- merge(data, partner_df, by = identifier)
   
   
-  partner_df <-  partner_df %>%
-    relocate(couple_identifier) 
-  
-  
-  partner_df <-  partner_df %>%
-    relocate(identifier) 
+  if(merge == T) {
+    colnames(data) <- paste(colnames(data), "A", sep = "_")
+    colnames(data)[colnames(data) == paste(identifier, "_A", sep ="")] =identifier
+    colnames(data)[colnames(data) == paste(couple_identifier, "_A", sep ="")] =couple_identifier
+    
+    partner_df <- merge(data, partner_df, by = identifier)
+    
+    
+    partner_df <-  partner_df %>%
+      relocate(couple_identifier) 
+    
+    
+    partner_df <-  partner_df %>%
+      relocate(identifier) 
   }
   return(partner_df)
   
