@@ -9,6 +9,9 @@ partner_data <- function(data, identifier, couple_identifier, merge = T){
     
     df <- mydata[mydata[,couple_identifier] == COUP & mydata[,identifier] != ID, ]
     df$Couple_ID <- NULL  
+    
+      # remove people with no partner data
+    if(nrow(df) > 0){
     df[, identifier] <- ID
     
     colnames(df) <- paste(colnames(df), "P", sep = "_")
@@ -16,7 +19,7 @@ partner_data <- function(data, identifier, couple_identifier, merge = T){
     
     if(i == 1){partner_df = df}
     if(i > 1){partner_df = rbind(partner_df, df)}
-    
+    }
   }
   
   
